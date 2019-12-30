@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(MyApp());
@@ -70,7 +71,9 @@ class MyApp extends StatelessWidget {
                   color: Colors.white,
                   margin:
                       EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
-                  child: ListTile(
+                  child:
+                  ListTile(
+                    onTap: _launchLinkedInURL,
                     leading: Icon(
                       Icons.email,
                       color: Colors.grey[700],
@@ -89,5 +92,14 @@ class MyApp extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+_launchLinkedInURL() async{
+  const url = 'https://www.linkedin.com/in/daryllwong/';
+  if(await canLaunch(url)){
+    await launch(url);
+  }else{
+    throw 'Could not launch $url';
   }
 }
